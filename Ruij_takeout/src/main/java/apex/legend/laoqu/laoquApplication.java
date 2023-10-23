@@ -7,6 +7,7 @@ import org.springframework.boot.web.servlet.ServletComponentScan;
 
 @Slf4j
 @SpringBootApplication
+@ServletComponentScan
 public class laoquApplication {
     public static void main(String[] args) {
         SpringApplication.run(laoquApplication.class,args);
