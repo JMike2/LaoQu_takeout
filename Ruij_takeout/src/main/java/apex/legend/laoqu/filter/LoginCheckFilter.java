@@ -1,5 +1,6 @@
 package apex.legend.laoqu.filter;
 
+import apex.legend.laoqu.common.BaseContext;
 import apex.legend.laoqu.common.R;
 import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
@@ -30,6 +31,8 @@ public class LoginCheckFilter implements Filter {
             return;
         }
         if(request.getSession().getAttribute("employee")!=null){
+            Long empId = (Long) request.getSession().getAttribute("employee");
+            BaseContext.setCurrentId(empId);
             filterChain.doFilter(request,response);
             return;
         }
