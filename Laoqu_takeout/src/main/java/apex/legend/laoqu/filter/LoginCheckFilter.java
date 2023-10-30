@@ -24,15 +24,25 @@ public class LoginCheckFilter implements Filter {
         String[] urls = new String[]{"/employee/login",
                                     "/employee/logout",
                                     "/backend/**",
-                                    "/front/**" };
+                                    "/front/**" ,
+                                     "/user/sendMsg",
+                                    "/user/login"};
         boolean check = check(urls,requestURI);
         if(check){
             filterChain.doFilter(request,response);
             return;
         }
+        //判断登录状态
         if(request.getSession().getAttribute("employee")!=null){
             Long empId = (Long) request.getSession().getAttribute("employee");
             BaseContext.setCurrentId(empId);
+            filterChain.doFilter(request,response);
+            return;
+        }
+        //判断移动端用户登录状态
+        if(request.getSession().getAttribute("user")!=null){
+            Long userId = (Long) request.getSession().getAttribute("user");
+            BaseContext.setCurrentId(userId);
             filterChain.doFilter(request,response);
             return;
         }
